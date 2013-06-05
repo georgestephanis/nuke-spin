@@ -16,6 +16,9 @@ function nuke_spin() {
 
 add_action( 'admin_bar_menu', 'nuke_spin_deactivate_reminder' );
 function nuke_spin_deactivate_reminder( $wp_admin_bar ) {
+	if( ! current_user_can( 'activate_plugins' ) )
+		return;
+
 	$plugin_file = plugin_basename( __FILE__ );
 	$query_args = array(
 		'action'        => 'deactivate',
@@ -32,5 +35,8 @@ function nuke_spin_deactivate_reminder( $wp_admin_bar ) {
 add_action( 'admin_head', 'nuke_spin_deactivate_reminder_style' );
 add_action( 'wp_head', 'nuke_spin_deactivate_reminder_style' );
 function nuke_spin_deactivate_reminder_style() {
+	if( ! current_user_can( 'activate_plugins' ) )
+		return;
+
 	echo '<style>#wpadminbar #wp-admin-bar-nuke-spin-deactivate-reminder a{background:#a00}</style>';
 }
