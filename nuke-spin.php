@@ -10,8 +10,10 @@
 
 add_action( 'wp_loaded', 'nuke_spin', 11 );
 function nuke_spin() {
-	wp_deregister_script( 'jquery.spin' );
-	wp_deregister_script( 'spin' );
+	if ( is_admin() ) {
+		wp_deregister_script( 'jquery.spin' );
+		wp_deregister_script( 'spin' );
+	}
 }
 
 add_action( 'admin_bar_menu', 'nuke_spin_deactivate_reminder' );
